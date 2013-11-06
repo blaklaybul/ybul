@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+<style>
+path {
+  stroke: black;
+  stroke-width: 0.25px;
+  fill: lightgrey;
+}
+
+
+#tooltip {
+-moz-transition: all 0.15s;
+-o-transition: all 0.15s;
+-webkit-transition: all 0.15s;
+transition: all 0.15s;
+position: absolute;
+min-width: 60px;
+height: 62px;
+padding: 10px;
+background-color: white;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+pointer-events: none;
+z-index: 1000;
+}	
+
+#tooltip.hidden {
+display: none;
+}
+
+#tooltip p {
+margin: 0;
+font-family: sans-serif;
+font-size: 16px;
+line-height: 20px;
+}	
+
+</style>
+</head>
+<body>
+	<div id= "tooltip" class = "hidden">
+		<p>
+			<span id = "stationLabel"></span>
+		</p>
+	</div>
+<script type="text/javascript" src="d3/d3.v3.min.js"></script>
+<script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+<script>
+
+var margin = {top: 40, right: 30, bottom: 40, left:30};
+var width=1020 - margin.left - margin.right;
+var height = 780 - margin.top - margin.bottom;
+   
+
+var stations = [];
+
+var projection = d3.geo.conicConformal()
+	.parallels([40+40/60,41+2/60])
+	.scale(300000)
+	.rotate([74,-40 - 45 / 60]);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var path = d3.geo.path().projection(projection);
+
+var zips = svg.append("g").attr("id", "zipPaths");
+var stations = svg.append("g").attr("id", "stations");
+
+var color = d3.scale.quantize()
+.domain([0,9])
+.range(colorbrewer.RdYlGn[9]);
+
+// load and display  NYC
+d3.json("nyc-zip-code.json", function(error, json) {
+    zips.selectAll("path")
+              .data(json.features)
+              .enter()
+              .append("path")
+			  //.attr("class", "tracts")
+			  .attr("id", function(d){return d.properties.ZIP;})
+              .attr("d", path);
+});
+
+var stationSize = [];
+
+var stationScale = d3.scale.linear()
+.range([2,7])
+
+$.ajax({
+    dataType: "jsonp",
+    url: 'http://api.citybik.es/citibikenyc.json',
+    success: function(data){
+		
+		
+		 $.each(data, function(){
+ 			stationSize.push(this.bikes+this.free);
+ 		});
+		
+		stationScale.domain(d3.extent(stationSize));
+
+		
+        $.each(data,function(){
+			
+			stations.selectAll("circle") //change back to circle?
+			.data(data)
+			.enter()
+			.append("circle")
+			.attr("cx", function(d){return projection([d.lng/1000000, d.lat/1000000])[0];})
+			.attr("cy", function(d){return projection([d.lng/1000000, d.lat/1000000])[1];})
+			.attr("r", function(d){return stationScale(d.bikes+d.free);})
+			.style("fill", function(d) { return color((d.bikes/(d.bikes+d.free))*9.0);})
+			.style("stroke","black")
+			.style("stroke-width", 1)
+			.on("mouseover", function(d){
+				d3.select(this).transition().attr("r",10);
+				
+				var xPosition = d3.select(this).attr("cx");
+				var yPosition = d3.select(this).attr("cy");
+				
+				d3.select("#tooltip")
+				.style("left", (d3.event.pageX) + "px")     
+				.style("top", (d3.event.pageY - 90) + "px")
+				.select("#stationLabel")	
+				.html("<strong>" + d.address + "</strong>" + "<br/>" + "Free Bikes: " + d.bikes + "<br/>" + "Free Docks: " + d.free);			
+			
+				d3.select("#tooltip").classed("hidden", false);
+				
+				})
+			.on("mouseout", function(){
+				d3.select("#tooltip").classed("hidden", true);
+				d3.select(this).transition().attr("r",function(d){return stationScale(d.bikes+d.free);});
+				
+				})
+			.on("click", function(d){
+				//still add a click function...
+				});
+       
+		 });
+    },
+    error: function(){
+        console.log("Error",arguments);
+    }
+});
+
+  	
+</script>
+</body>
+</html>

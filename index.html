@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>hochemoche</title>
+  
+  
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="skeleton.css">
+  <link rel="stylesheet" href="layout.css">
+  <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript" src="d3/d3.v3.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42735820-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+ 
+ </head>
+ 
+  <body>
+	  <div class = "container">
+		  <div id = "headerimage" class = "three columns">
+			  <h1><a href = "index.html">hochemoche</a></h1>
+		  </div>
+		  
+		  <div id = "nav" class = "thirteen columns">
+			
+			  <ul>
+				  <li><a href = "projects.html">Projects</a></li>
+				  <li><a href = "About.html">About</a></li>
+			  </ul>
+		  	
+		  </div>
+		  
+		  <div id = "viz" class = "sixteen columns">
+			  <script type = "text/javascript">
+			  	
+			  var w = 940;
+			  var h = 300;
+			  var margin = 60;
+			  var count = 1;
+			  var data = 
+			  [
+			  				{"let" : "h", "val" : 1},
+							{"let" : "o", "val" : 2},
+							{"let" : "c", "val" : 3}, 
+							{"let" : "h", "val" : 4},
+							{"let" : "e", "val" : 5},
+							{"let" : "m", "val" : 6},
+							{"let" : "o", "val" : 7},
+							{"let" : "c", "val" : 8},
+							{"let" : "h", "val" : 9},
+							{"let" : "e", "val" : 10}
+						];
+						
+			  
+			  var scale = d3.scale.linear()
+			  				.domain([1,data.length])
+							.range([margin, w-margin]);
+			  
+			  
+			  
+			  var svg = d3.select("#viz")
+			  			.append("svg")
+			 		   	.attr("width",w)
+						.attr("height",h);
+			  
+						
+				svg.selectAll("circle")
+					.data(data)
+					.enter()
+					.append("circle")
+					.style("stroke", "gray")
+					.style("fill", "white")
+					.attr("cx", function(d){return scale(d.val);})
+					.attr("cy", h/2)
+					.attr("r", 20);
+				
+					svg.selectAll("text")
+						.data(data)
+						.enter()
+						.append("text")
+						.attr("x", function(d) {return scale(d.val);})
+						.attr("y", h/2 + 4)
+						.attr("text-anchor", "middle")
+						.text(function(d){return d.let;})
+						.attr("fill", "black")
+						.style("font-family", "Shadows Into Light");
+				
+					
+					d3.selectAll("circle")
+					.on("mouseover", function(){
+						
+					
+					svg.selectAll("circle")
+						.data(data)
+						.transition()
+						.duration(500)
+						.ease("linear")
+						.attr("r", function(){return Math.random() * 50})
+						.style("fill", function(d){return d3.rgb(Math.random()*255,Math.random()*255 ,Math.random()*255).brighter();});
+						
+				});
+							
+			  
+			  </script>
+		  </div>
+		  
+		  <div class = "one-third column feature">
+			  <h2>CitiBike Ridership Data</h2>
+			  <a href = CitiBike.html><img src = http://25.media.tumblr.com/tumblr_m7td6teI1d1rnflwfo1_500.gif></a>
+			  <p>Another Look at NYC Citi Bike Data</p>
+		  </div>
+		  
+		  <div class = "one-third column feature">
+			  <h2>New Page!</h2>
+			  <a href = CitiBike.html><img src = http://www.watchungschools.com/watchung/images/new_animated.gif></a>
+			  <p>Just got this up. Much, much more to come.</p>
+		  </div>
+		  
+		  <div class = "one-third column feature">
+			  <h2>World Map</h2>
+			  <a href = WorldMap.html><img src = "Images/WorldMap.png"></a>
+			  <p>Here's a world map I created with Processing.js. Longitude and latitude points for cities with a population over 1000 were taken from GeoNames.org and mapped to ellipses. Click to change the map color.</p>
+		  </div>
+		  
+		  <div class = "one-third column feature">
+			  <h2>About</h2>
+			  <img src = "http://farm4.staticflickr.com/3165/2762558925_5c488020c9_z.jpg">
+			  <p>That's me in the desert</p>
+		  </div>
+	  </div>
+ 
+ </body>
+</html>
