@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>hochemoche</title>
+  <style>
+  </style>
+  
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="skeleton.css">
+  <link rel="stylesheet" href="layout.css">
+  <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript" src="d3/d3.v3.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42735820-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+ 
+ </script>
+ 
+ </head>
+ 
+  <body>
+	  <div class = "container">
+		  
+		  <div id = "headerimage" class = "three columns">
+			  <h1><a href = "index.html">hochemoche</a></h1>
+		  </div>
+		  
+		  <div id = "nav" class = "thirteen columns">
+			
+			  <ul>
+				  <li><a href = "projects.html">Projects</a></li>
+				  <li><a href = "About.html">About</a></li>
+			  </ul>
+		  	
+		  </div>
+		  <div id="buttons" class = "sixteen columns">
+		  <button id = "newShape"><span>Finish Shape</span></button>
+		  <button id = "clear"><span>Remove Points</span></button>
+	  		</div>
+		  <div id = "viz" class = "sixteen columns">
+			  <script type = "text/javascript">
+			  	
+			  var margin = {top: 40, right: 40, bottom: 40, left:40};
+			  var width  = 600 - margin.left - margin.right;
+			  var height = 600 - margin.top - margin.bottom;
+			  
+			  var size = 15
+			  
+			  var data = [];
+			  var where = [];
+			  
+			  makeMore(data,0);
+			  
+			  var makeLine = d3.svg.line()
+                         .x(function(d) { return d.x; })
+                         .y(function(d) { return d.y; })
+						 .interpolate("cardinal-closed");  
+     		  
+			  var area = d3.svg.area()
+  					     .x0(function(d) { return d.x; })
+  					     .y1(function(d) { return d.y;});
+
+			  var xScale = d3.scale.linear()
+			  .domain([1,size])
+			  .range([margin.left,width+margin.left]);
+			 
+			  var yScale = d3.scale.linear()
+			  .domain([1,size])
+			  .range([margin.top,height+margin.top]);
+			 
+			  
+			  var svg = d3.selectAll("#viz").append("svg")
+				  .attr("width", width + margin.left + margin.right)
+				  .attr("height", height + margin.top + margin.bottom)
+				  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			
+			 drawCircle(data); 
+			
+			 function drawCircle(data){ 
+			 	var circle = svg.selectAll("circle")
+				  			.data(data);
+							
+				circle.transition()
+				  .attr("cx", function(d){return xScale(d[0]);})
+				  .attr("cy", function(d){return yScale(d[1]);});
+				  
+				circle.enter()
+				  .append("circle")
+				  .attr("cx", function(d){return xScale(d[0]);})
+  				  .attr("cy", function(d){return yScale(d[1]);})
+				  .attr("r", 5)
+				  .style("position", "relative")
+				  .style("z-index", 10)
+				  .on("mouseover", function(){d3.select(this).transition().attr("r",7);})
+			  	  .on("mouseout", function(){d3.select(this).transition().attr("r",5);})
+				  .on("click", function(){
+					  if(where.length>0){
+						  d3.select(this).style("fill", "red");
+					  where.push({ "x" : d3.select(this).attr("cx"), "y" : d3.select(this).attr("cy")});
+				  		}
+					 else{
+					 d3.select(this).style("fill", "red");
+					  where.push({ "x" : d3.select(this).attr("cx"), "y" : d3.select(this).attr("cy")});};});
+			  
+			     
+				circle.exit()
+				.transition().duration(750).style("opacity",0).remove();
+			  		
+				 }
+				 
+ 				var clearCircle = d3.select("#clear")
+ 								.attr("x", 30)
+ 								.attr("y", 10)
+ 								.attr("width", 10)
+ 								.attr("height",19)
+ 								.on("click", function(){ 
+									
+ 									svg.selectAll("circle")
+ 									.remove();
+								});
+				  
+				var newShape = d3.select("#newShape")
+								.attr("x", 10)
+								.attr("y", 10)
+								.attr("width", 10)
+								.attr("height",19)
+								.on("click", function(){ 
+									svg.selectAll("circle")
+									.style("fill", "black");
+									
+									drawLine(where);
+ 									
+									svg.selectAll("circle")
+ 									.remove();
+									
+									drawCircle(data);
+									
+									where = [];
+								});
+								
+				// var takeAway = svg.append("rect")
+//  								.attr("x", 50)
+//  								.attr("y", 10)
+//  								.attr("width", 10)
+//  								.attr("height",19)
+// 								.style("fill", "red")
+//  								.on("click", function(){ 
+// 									
+// 									size = size-1;
+// 									makeMore(data,-1);
+// 									drawCircle(data);
+// 									
+// 								});
+// 				
+// 				var addMore = svg.append("rect")
+//  								.attr("x", 70)
+//  								.attr("y", 10)
+//  								.attr("width", 10)
+//  								.attr("height",19)
+// 								.style("fill", "green")
+//  								.on("click", function(){ 
+// 									
+//  									size = size+1;
+// 									makeMore(data,1);
+// 									drawCircle(data);
+// 								});
+								
+			  
+			  function makeMore(stuff, howTo) {
+				  if(howTo == 0){
+					  for (var i = 1; i<size+1; i++){
+						  for(var j = 1; j<size+1; j++){
+							  stuff.push([i,j]);
+				  }
+			  }
+		  }
+				  // if(howTo==1){
+ // 				  for (var i = 1; i<size+1; i++){
+ // 						  stuff.push([i,size]);
+ // 						  stuff.push([size,i]);
+ // 			  		}
+ // 					stuff.pop();
+ // 				  }
+ // 				  if(howTo==-1){
+ // 					  stuff.splice(stuff.indexOf([size+1,size+1]),1);
+ // 					  // for (var i = 1; i<=size+1; i++){
+ // 						  console.log(stuff.indexOf([i,size+1]));
+ // 							  stuff.splice(stuff.indexOf([i,size+1]),1);
+ // 							  stuff.splice(stuff.indexOf([size+1,i]),1);
+ // 							  return stuff;
+ // 				  		}
+ // 				  }
+				 
+		  	  	};
+				
+				function drawLine(where){
+					
+					var lineGraph = svg.append("path")
+                            .attr("d", makeLine(where))
+                            .attr("stroke", "black")
+                            .attr("stroke-width", 2)
+                            .attr("fill", function(){return d3.rgb(Math.random()*255,Math.random()*255 ,Math.random()*255).brighter();})
+							.style("opacity", 0.7)
+							.style("position", "relative")
+							.style("z-index", -10)
+							.on("click", function(){
+								d3.select(this).attr("fill",
+								function(){
+									return d3.rgb(Math.random()*255,Math.random()*255 ,Math.random()*255).brighter();})
+								});
+							
+							
+				}
+			
+			  
+			  </script>
+		  </div>
+	  </div>
+		  
+ 
+ </body>
+</html>
