@@ -4,6 +4,16 @@
   <meta charset="UTF-8">
   <title>hochemoche</title>
   <style>
+  
+  #buttons
+  	{
+  		position: relative;
+  		float: left;
+  		font-size:0.75em; 
+  		width:150px;
+  		height: 100%;
+  	}
+  
   </style>
   
   <link rel="stylesheet" href="base.css">
@@ -30,6 +40,8 @@
  </head>
  
   <body>
+	  
+	  <div class = "band">
 	  <div class = "container">
 		  
 		  <div id = "headerimage" class = "three columns">
@@ -44,14 +56,23 @@
 			  </ul>
 		  	
 		  </div>
-		  <div id="buttons" class = "sixteen columns">
-		  <button id = "newShape"><span>Finish Shape</span></button>
-		  <button id = "clear"><span>Remove Points</span></button>
-	  		</div>
-		  <div id = "viz" class = "sixteen columns">
+	  </div>
+  </div>
+  
+  <div class = "band">
+	  <div class = "container">
+		  
+		  <div id="buttons" class = "two columns">
+		  
+		  <button id = "newShape"><span>Add Shape</span></button>
+		  <button id = "clear"><span>Toggle Points</span></button>
+	  	
+		  </div>
+		  	
+		  <div id = "viz" class = "twelve columns">
 			  <script type = "text/javascript">
 			  	
-			  var margin = {top: 40, right: 40, bottom: 40, left:40};
+			  var margin = {top: 60, right: 60, bottom: 60, left:60};
 			  var width  = 600 - margin.left - margin.right;
 			  var height = 600 - margin.top - margin.bottom;
 			  
@@ -59,6 +80,7 @@
 			  
 			  var data = [];
 			  var where = [];
+			  var show = true;
 			  
 			  makeMore(data,0);
 			  
@@ -125,9 +147,14 @@
  								.attr("width", 10)
  								.attr("height",19)
  								.on("click", function(){ 
-									
+									show = !show;
+									if(show==false){
  									svg.selectAll("circle")
  									.remove();
+									}
+									if(show==true){
+										drawCircle(data);
+									}
 								});
 				  
 				var newShape = d3.select("#newShape")
@@ -226,7 +253,11 @@
 			  
 			  </script>
 		  </div>
+		  
+		  
 	  </div>
+  </div>
+</div>
 		  
  
  </body>
