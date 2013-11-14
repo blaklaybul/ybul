@@ -47,7 +47,7 @@
 		  <div id = "viz" class = "sixteen columns">
 			  <script type = "text/javascript">
 			  	
-			  var w = 940;
+			  var w = 900;
 			  var h = 300;
 			  var margin = 60;
 			  var count = 1;
@@ -87,7 +87,17 @@
 					.attr("cx", function(d){return scale(d.val);})
 					.attr("cy", h/2)
 					.attr("r", 20);
-				
+
+			  svg.selectAll("text")
+					.data(data)
+					.enter()
+					.append("text")
+					.attr("x", function(d) {return scale(d.val);})
+					.attr("y", h/2 + 4)
+					.attr("text-anchor", "middle")
+					.text(function(d){return d.let;})
+					.attr("fill", "black")
+					.style("font-family", "Shadows Into Light");
 					
 				
 				d3.selectAll("circle")
@@ -109,25 +119,31 @@
 		  </div>
 		  
 		  <div class = "one-third column feature">
-			  <h2>CitiBike Ridership Data</h2>
+			  <h3>CitiBike Dock Map</h3>
+			  <a href = Stations.html><img src = "Images/stationClip.png"></a>
+			  <p>Find open docks and free bikes on this live map!</p>
+		  </div>
+		  
+		  <div class = "one-third column feature">
+			  <h3>CitiBike Ridership Data</h3>
 			  <a href = CitiBike.html><img src = http://25.media.tumblr.com/tumblr_m7td6teI1d1rnflwfo1_500.gif></a>
 			  <p>Another Look at NYC Citi Bike Data</p>
 		  </div>
 		  
 		  <div class = "one-third column feature">
-			  <h2>New Page!</h2>
+			  <h3>New Page!</h3>
 			  <a href = CitiBike.html><img src = http://www.watchungschools.com/watchung/images/new_animated.gif></a>
 			  <p>Just got this up. Much, much more to come.</p>
 		  </div>
 		  
 		  <div class = "one-third column feature">
-			  <h2>World Map</h2>
+			  <h3>World Map</h3>
 			  <a href = WorldMap.html><img src = "Images/WorldMap.png"></a>
 			  <p>Here's a world map I created with Processing.js. Longitude and latitude points for cities with a population over 1000 were taken from GeoNames.org and mapped to ellipses. Click to change the map color.</p>
 		  </div>
 		  
 		  <div class = "one-third column feature">
-			  <h2>About</h2>
+			  <h3>About</h3>
 			  <img src = "http://farm4.staticflickr.com/3165/2762558925_5c488020c9_z.jpg">
 			  <p>That's me in the desert</p>
 		  </div>
