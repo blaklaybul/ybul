@@ -5,16 +5,18 @@
   <title>hochemoche</title>
   <style>
   
-  #video_background{
+  #triboro{
 	  position:absolute;
-	  bottom:0px;
-	  right:0px;
+	  top:0px;
+	  left:0px;
 	  min-width:100%;
-	  min-height:100%;
+	  min-height:2000px;
 	  width:auto;
 	  height:auto;
 	  z-index:-1000;
-	  overflow:hidden;
+	  background-image: url("Images/triboro.gif");
+	  background-size:100%;
+	
   }
  
   
@@ -60,11 +62,8 @@
 		  	
 		  </div>
 		</div>  
-		  <video id = "video_background" preload = "auto" autoplay = "true" loop = "loop" muted = "muted" volume="0">
-			  <source src = "Images/hochevid.webm" type = "video/webm">
-			  <source src = "Images/hochevid.mp4" type = "video/mp4">
-			  </video>
-		  
+		<div id = "triboro">
+		</div>
 	
  
  </body>
