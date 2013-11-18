@@ -102,12 +102,14 @@
 					
 				   var line = d3.svg.line()
 				       .x(function(d) { return x(d.date); })
-				       .y(function(d) { return y(d.Trips_Over_Past_24); });
+				       .y(function(d) { return y(d.Trips_Over_Past_24); })
+					   .interpolate("cardinal");
 				  
 					   var area = d3.svg.area()
 					       .x(function(d) { return x(d.date); })
 					       .y0(height)
-					       .y1(function(d) { return y(d.Trips_Over_Past_24); });
+					       .y1(function(d) { return y(d.Trips_Over_Past_24); })
+						   .interpolate("cardinal");
    						
 					var svg = d3.select("#CitiBike").append("svg")
    						.attr("width", width + margin.left + margin.right)
