@@ -53,16 +53,16 @@
 			  var count = 1;
 			  var data = 
 			  [
-			  				{"let" : "h", "val" : 1},
-							{"let" : "o", "val" : 2},
-							{"let" : "c", "val" : 3}, 
-							{"let" : "h", "val" : 4},
-							{"let" : "e", "val" : 5},
-							{"let" : "m", "val" : 6},
-							{"let" : "o", "val" : 7},
-							{"let" : "c", "val" : 8},
-							{"let" : "h", "val" : 9},
-							{"let" : "e", "val" : 10}
+			  				{"let" : "", "val" : 1},
+							{"let" : "", "val" : 2},
+							{"let" : "", "val" : 3}, 
+							{"let" : "", "val" : 4},
+							{"let" : "", "val" : 5},
+							{"let" : "", "val" : 6},
+							{"let" : "", "val" : 7},
+							{"let" : "", "val" : 8},
+							{"let" : "", "val" : 9},
+							{"let" : "", "val" : 10}
 						];
 						
 			  
@@ -82,25 +82,12 @@
 					.data(data)
 					.enter()
 					.append("circle")
-					.style("stroke", "gray")
-					.style("fill", "white")
+					.style("fill", function(d){return d3.rgb(Math.random()*255,Math.random()*255 ,Math.random()*255).brighter();})
 					.attr("cx", function(d){return scale(d.val);})
 					.attr("cy", h/2)
 					.attr("r", 20);
 
-			  svg.selectAll("text")
-					.data(data)
-					.enter()
-					.append("text")
-					.attr("x", function(d) {return scale(d.val);})
-					.attr("y", h/2 + 4)
-					.attr("text-anchor", "middle")
-					.text(function(d){return d.let;})
-					.attr("fill", "black")
-					.style("font-family", "Shadows Into Light");
-					
-				
-				d3.selectAll("circle")
+			  d3.selectAll("circle")
 					.on("mouseover", function(){
 						
 					
@@ -118,6 +105,13 @@
 			  </script>
 		  </div>
 		  
+		  
+		  <div class = "one-third column feature">
+			  <h3>JSpaceMan</h3>
+			  <a href = spaceman.html><img src = "Images/spaceclip.png"></a>
+			  <p>Pixel munging with Processing. Bringing Spaceman Home</p>
+		  </div>
+		  
 		  <div class = "one-third column feature">
 			  <h3>CitiBike Dock Map</h3>
 			  <a href = Stations.html><img src = "Images/stationClip.png"></a>
@@ -129,17 +123,15 @@
 			  <a href = CitiBike.html><img src = http://25.media.tumblr.com/tumblr_m7td6teI1d1rnflwfo1_500.gif></a>
 			  <p>Another Look at NYC Citi Bike Data</p>
 		  </div>
+		
+		  
+		  <div class = "sixteen columns"></div>
 		  
 		  <div class = "one-third column feature">
 			  <h3>World Map</h3>
 			  <a href = WorldMap.html><img src = "Images/WorldMap.png"></a>
 			  <p>Here's a world map I created with Processing.js. Click to change the map color.</p>
 		  </div>
-		 
-		  
-		  <div class = "sixteen columns"></div>
-		  
-		 
 		  
 		  <div class = "one-third column feature">
 			  <h3>About</h3>
