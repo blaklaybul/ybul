@@ -5,14 +5,9 @@
   <title>hochemoche</title>
   <style>
   
-  #buttons
-  	{
-  		position: relative;
-  		float: left;
-  		font-size:0.75em; 
-  		width:150px;
-  		height: 100%;
-  	}
+  #buttons{
+	  padding-top: 20px;
+  }
   
   </style>
   
@@ -41,7 +36,7 @@
  
   <body>
 	  
-	  <div class = "band">
+
 	  <div class = "container">
 		  
 		  <div id = "headerimage" class = "three columns">
@@ -55,16 +50,16 @@
 			  </ul>
 		  	
 		  </div>
-	  </div>
-  </div>
+		</div>  
+ 
   
-  <div class = "band">
-	  <div class = "container">
-		  
+
+		<div class = "container">  
 		  <div id="buttons" class = "two columns">
 		  
 		  <button id = "newShape"><span>Add Shape</span></button>
 		  <button id = "clear"><span>Toggle Points</span></button>
+		  <button id = "clearAll"><span>Remove All</span></button>
 	  	
 		  </div>
 		  	
@@ -72,8 +67,8 @@
 			  <script type = "text/javascript">
 			  	
 			  var margin = {top: 60, right: 60, bottom: 60, left:60};
-			  var width  = 600 - margin.left - margin.right;
-			  var height = 600 - margin.top - margin.bottom;
+			  var width  = 650 - margin.left - margin.right;
+			  var height = 650 - margin.top - margin.bottom;
 			  
 			  var size = 15
 			  
@@ -141,10 +136,6 @@
 				 }
 				 
  				var clearCircle = d3.select("#clear")
- 								.attr("x", 30)
- 								.attr("y", 10)
- 								.attr("width", 10)
- 								.attr("height",19)
  								.on("click", function(){ 
 									show = !show;
 									if(show==false){
@@ -157,10 +148,6 @@
 								});
 				  
 				var newShape = d3.select("#newShape")
-								.attr("x", 10)
-								.attr("y", 10)
-								.attr("width", 10)
-								.attr("height",19)
 								.on("click", function(){ 
 									svg.selectAll("circle")
 									.style("fill", "black");
@@ -175,33 +162,11 @@
 									where = [];
 								});
 								
-				// var takeAway = svg.append("rect")
-//  								.attr("x", 50)
-//  								.attr("y", 10)
-//  								.attr("width", 10)
-//  								.attr("height",19)
-// 								.style("fill", "red")
-//  								.on("click", function(){ 
-// 									
-// 									size = size-1;
-// 									makeMore(data,-1);
-// 									drawCircle(data);
-// 									
-// 								});
-// 				
-// 				var addMore = svg.append("rect")
-//  								.attr("x", 70)
-//  								.attr("y", 10)
-//  								.attr("width", 10)
-//  								.attr("height",19)
-// 								.style("fill", "green")
-//  								.on("click", function(){ 
-// 									
-//  									size = size+1;
-// 									makeMore(data,1);
-// 									drawCircle(data);
-// 								});
-								
+				var clearAll = d3.select("#clearAll")
+								.on("click", function(){
+								 svg.selectAll("path").remove();	
+								});
+					
 			  
 			  function makeMore(stuff, howTo) {
 				  if(howTo == 0){
@@ -210,25 +175,8 @@
 							  stuff.push([i,j]);
 				  }
 			  }
-		  }
-				  // if(howTo==1){
- // 				  for (var i = 1; i<size+1; i++){
- // 						  stuff.push([i,size]);
- // 						  stuff.push([size,i]);
- // 			  		}
- // 					stuff.pop();
- // 				  }
- // 				  if(howTo==-1){
- // 					  stuff.splice(stuff.indexOf([size+1,size+1]),1);
- // 					  // for (var i = 1; i<=size+1; i++){
- // 						  console.log(stuff.indexOf([i,size+1]));
- // 							  stuff.splice(stuff.indexOf([i,size+1]),1);
- // 							  stuff.splice(stuff.indexOf([size+1,i]),1);
- // 							  return stuff;
- // 				  		}
- // 				  }
-				 
-		  	  	};
+		  } 
+	  	};
 				
 				function drawLine(where){
 					
@@ -244,7 +192,10 @@
 								d3.select(this).attr("fill",
 								function(){
 									return d3.rgb(Math.random()*255,Math.random()*255 ,Math.random()*255).brighter();})
-								});
+								})
+							 .on("dblclick", function(){
+								 d3.select(this).remove();
+							 });
 							
 							
 				}
@@ -253,10 +204,17 @@
 			  </script>
 		  </div>
 		  
+		  <div class = "two columns">
+		  
+		  <span> How to use this...</span>
+	  	
+		  </div>
 		  
 	  </div>
-  </div>
-</div>
+		  
+		  
+		  
+
 		  
  
  </body>
