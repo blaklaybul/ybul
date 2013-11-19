@@ -90,7 +90,8 @@
 			  d3.selectAll("circle")
 					.on("mouseover", function(){
 						
-					
+						d3.selectAll("body").style("background-color", "black");
+						
 					svg.selectAll("circle")
 						.data(data)
 						.transition()
@@ -99,6 +100,9 @@
 						.attr("r", function(){return Math.random() * 50})
 						.style("fill", function(d){return d3.rgb(Math.random()*255,Math.random()*255 ,Math.random()*255).brighter();});
 						
+				})
+				.on("mouseout", function(){
+					d3.selectAll("body").transition().style("background-color", "white");
 				});
 							
 			  
