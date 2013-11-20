@@ -48,7 +48,7 @@
 }
 
 #headerimage a:hover{
-	text-shadow: -0.06em 0 red, 0.06em 0 cyan;
+	text-shadow: -0.08em 0 red, 0.08em 0 yellow;
 	text-decoration: none;
 }
 
