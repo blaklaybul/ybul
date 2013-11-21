@@ -39,11 +39,11 @@
 
 	  <div class = "container">
 		  
-		  <div id = "headerimage" class = "three columns">
+		  <div id = "headerimage" class = "four columns">
 			  <h1><a href = "index.html">hochemoche</a></h1>
 		  </div>
 		  
-		  <div id = "nav" class = "thirteen columns">
+		  <div id = "nav" class = "twelve columns">
 			
 			  <ul>
 				  <li><a href = "About.html">About</a></li>
@@ -55,15 +55,15 @@
   
 
 		<div class = "container">  
-		  <div id="buttons" class = "two columns">
+		  <div id="buttons" class = "sixteen columns">
 		  
-		  <button id = "newShape"><span>Add Shape</span></button>
+		  <span><button id = "newShape"><span>Add Shape</span></button>
 		  <button id = "clear"><span>Toggle Points</span></button>
-		  <button id = "clearAll"><span>Remove All</span></button>
+		  <button id = "clearAll"><span>Clear</span></button></span>
 	  	
 		  </div>
 		  	
-		  <div id = "viz" class = "twelve columns">
+		  <div id = "viz" class = "thirteen columns">
 			  <script type = "text/javascript">
 			  	
 			  var margin = {top: 60, right: 60, bottom: 60, left:60};
@@ -100,26 +100,62 @@
 				  .attr("width", width + margin.left + margin.right)
 				  .attr("height", height + margin.top + margin.bottom)
 				  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			  
+				  var paths, points, clips;
+				  clips = svg.append("g").attr("id", "point-clips");
+				  points = svg.append("g").attr("id", "points");
+				  paths = svg.append("g").attr("id", "point-paths");
 			
+				  clips.selectAll("clipPath")
+				  .data(data)
+				  .enter().append("svg:clipPath")
+				  .attr("id", function(d,i){return "clip-"+i;})
+				  .attr("cx", function(d){return d[0];})
+				  .attr("cy", function(d){return d[1];})
+				  .attr("r", 20);
+				  
+				  paths.selectAll("path")
+				        .data(d3.geom.voronoi(data))
+				      .enter().append("svg:path")
+				        .attr("d", function(d) { return "M" + d.join(",") + "Z"; })
+				        .attr("id", function(d,i) { 
+				          return "path-"+i; })
+				        .attr("clip-path", function(d,i) { return "url(#clip-"+i+")"; })
+				        .style("fill", d3.rgb(230, 230, 230))
+				        .style('fill-opacity', 0.4)
+				        .style("stroke", d3.rgb(200,200,200));
+    
+				    paths.selectAll("path")
+				      .on("mouseover", function(d, i) {
+				        d3.select(this)
+				          .style('fill', d3.rgb(31, 120, 180));
+				        svg.select('circle#point-'+i)
+				          .style('fill', d3.rgb(31, 120, 180))
+				      })
+				      .on("mouseout", function(d, i) {
+				        d3.select(this)
+				          .style("fill", d3.rgb(230, 230, 230));
+				        svg.select('circle#point-'+i)
+				          .style('fill', 'black')
+				      });
+				  
 			 drawCircle(data); 
 			
 			 function drawCircle(data){ 
-			 	var circle = svg.selectAll("circle")
+			 	var circle = points.selectAll("circle")
 				  			.data(data);
-							
-				circle.transition()
-				  .attr("cx", function(d){return xScale(d[0]);})
-				  .attr("cy", function(d){return yScale(d[1]);});
 				  
 				circle.enter()
 				  .append("circle")
 				  .attr("cx", function(d){return xScale(d[0]);})
   				  .attr("cy", function(d){return yScale(d[1]);})
-				  .attr("r", 5)
+				  .attr("r", 12)
 				  .style("position", "relative")
 				  .style("z-index", 10)
-				  .on("mouseover", function(){d3.select(this).transition().attr("r",7);})
-			  	  .on("mouseout", function(){d3.select(this).transition().attr("r",5);})
+				  .style("stroke-width", 12)
+				  .style("stroke", "white")
+				  .on("mouseover", function(){d3.select(this).transition().attr("r",15);})
+			  	  .on("mouseout", function(){d3.select(this).transition().attr("r",12);})
 				  .on("click", function(){
 					  if(where.length>0){
 						  d3.select(this).style("fill", "red");
@@ -129,9 +165,6 @@
 					 d3.select(this).style("fill", "red");
 					  where.push({ "x" : d3.select(this).attr("cx"), "y" : d3.select(this).attr("cy")});};});
 			  
-			     
-				circle.exit()
-				.transition().duration(750).style("opacity",0).remove();
 			  		
 				 }
 				 
@@ -204,9 +237,25 @@
 			  </script>
 		  </div>
 		  
-		  <div class = "two columns">
+		  <div class = "three columns">
 		  
-		  <span> How to use this...</span>
+		  <p>
+			  Inspired by an ad I saw on the N train. 
+		  </p>
+		  
+		  <p>
+			  Click points to begin drawing your shape, a red circle means your vertex has been registered.
+		  </p> 
+		
+		  <ul>
+			  <li>"Add Shape" draws your creation to the board</li>
+			  <li>"Toggle Points" removes those black circles</li>
+			  <li>"Clear" resets your canvas</li>
+		  </ul>
+		  
+		  <p>
+			  Click within your shapes to change the color, double click to remove it. Enjoy!
+		  </p>
 	  	
 		  </div>
 		  
