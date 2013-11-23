@@ -56,17 +56,25 @@ var color = d3.scale.quantize()
 var stationSize = [];
 
 var stationScale = d3.scale.linear()
-.range([2,7])
-
+.range([2,7]);
 
 $.ajax({
     dataType: "jsonp",
     url: 'http://api.citybik.es/citibikenyc.json',
     success: function(data){
 		
-		
 		 $.each(data, function(){
-		     L.circle([this.lat/1000000,this.lng/1000000],100).addTo(map)
+			 
+			 var getColor = function() {
+				    				if(this.bikes==0){
+				    					return 'red';}
+				    				else{
+				    					return color((this.bikes/(this.bikes+this.free))*9.0);}
+				    				};
+			 
+			 var circle_Options = {fillColor: getColor}
+			 
+		     L.circle([this.lat/1000000,this.lng/1000000],100, circle_Options).addTo(map)
  		});
 		
 	//	stationScale.domain(d3.extent(stationSize));
