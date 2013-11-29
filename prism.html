@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>hochemoche</title>
+  <style>
+  #prismSlideshow a{
+	  text-decoration: none;
+  }
+  
+  #prismSlideshow a:hover,
+  #prismSlideshow a:active {
+    color: rgb(250,35,71);
+	font-weight: bold;
+  }
+  
+  </style>
+  
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="skeleton.css">
+  <link rel="stylesheet" href="layout.css">
+  
+  <script type="text/javascript" src="d3/d3.v3.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+  <script src="slidesjs/jquery.slides.min.js"></script>
+  <script>
+      $(function(){
+        $("#prismSlideshow").slidesjs({
+          width: 940,
+          height: 528,
+		  navigation:{active:false, effect:"fade"},
+		  pagination:{active:false}
+        });
+      });
+    </script>
+  
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42735820-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+ 
+ </head>
+ 
+  <body>
+	  <div class = "container">
+		  
+		  <div id = "headerimage" class = "four columns">
+			  <h1><a href = "index.html">hochemoche</a></h1>
+		  </div>
+		  
+		  <div id = "nav" class = "twelve columns">
+			
+			  <ul>
+				  <li><a href = "About.html">About</a></li>
+			  </ul>
+		  	
+		  </div>
+		  
+		  <div class = "sixteen columns"><p></p><br><p></p><br></div>
+		  
+		  <div class = "sixteen columns" id = "prismSlideshow">
+			      <img src="Images/prism/1.jpg">
+			      <img src="Images/prism/2.jpg">
+			      <img src="Images/prism/3.jpg">
+			      <img src="Images/prism/4.jpg">
+			      <img src="Images/prism/5.jpg">
+			      <img src="Images/prism/6.jpg">
+			      <img src="Images/prism/7.jpg">
+			      <img src="Images/prism/8.jpg">				  				  				  
+			      <a href="#" class="slidesjs-previous slidesjs-navigation">Previous</a>
+			      <a href="#" class="slidesjs-next slidesjs-navigation">Next</a>
+		  </div>
+		  <div class = "sixteen columns"><p></p><br><p></p><br></div>
+		  <div class = "sixteen columns">
+			  <p>Light changes speed as it moves from one medium to another. This speed change causes the light to be refracted and to enter the new medium at a different angle. This causes light of different colors to be refracted differently and to leave the prism at different angles, creating an effect similar to a rainbow. This can be used to separate a beam of white light into its constituent spectrum of colors.</p>
+			  <p>Here a traditional prism and a cylindrical prism are used to provide a new perspective on everyday objects. Trees are flipped, lights are distored, and the ground meshes with the sky.</p>
+		  </div>
+		
+	</div>
+ 
+ </body>
+</html>
