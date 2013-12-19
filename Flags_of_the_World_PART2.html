@@ -57,9 +57,6 @@
   			<h1> Data Flags of the World </h1>
   			<p>Flag designs driven by characteristic country data.</p>
   		</div>
-  		<div class = "sixteen columns">
-  			<p><br></p>
-  		</div>
   	</div>
 		  
 		  <div style="width = 100%; margin:0px auto;" id = "flag">
@@ -123,6 +120,132 @@
 				.attr("width", 960)
 				.attr("height", 300);
 
+	var flag = svg.append("g").attr("id", "flag");
+
+	flag.append("rect")
+		.attr("x", 0)
+		.attr("y", 50)
+		.attr("width", 150)
+		.attr("height", 100)
+		.style("fill", "red")
+		.on("mouseover", function(){
+			d3.selectAll("#flag")
+				.append("rect")
+				.attr("class", "legendGrad")
+				.attr("x", 400)
+				.attr("y", 100)
+				.attr("width", 67)
+				.attr("height", 100)
+				.style("fill", d3.rgb(33, 166, 77));
+
+			d3.selectAll("#flag")
+				.append("rect")
+				.attr("class", "legendGrad")
+				.attr("x", 467)
+				.attr("y", 100)
+				.attr("width", 67)
+				.attr("height", 100)
+				.style("fill", d3.rgb(33, 166, 159));
+
+			d3.selectAll("#flag")
+				.append("rect")
+				.attr("class", "legendGrad")
+				.attr("x", 534)
+				.attr("y", 100)
+				.attr("width", 67)
+				.attr("height", 100)
+				.style("fill", d3.rgb(33, 91, 166));
+
+			d3.selectAll("#flag")
+				.append("rect")
+				.attr("class", "legendGrad")
+				.attr("x", 601)
+				.attr("y", 100)
+				.attr("width", 67)
+				.attr("height", 100)
+				.style("fill", d3.rgb(57, 33, 166));
+
+			d3.selectAll("#flag")
+				.append("rect")
+				.attr("class", "legendGrad")
+				.attr("x", 668)
+				.attr("y", 100)
+				.attr("width", 67)
+				.attr("height", 100)
+				.style("fill", d3.rgb(139, 33, 166));
+
+			d3.selectAll("#flag")
+				.append("rect")
+				.attr("class", "legendGrad")
+				.attr("x", 735)
+				.attr("y", 100)
+				.attr("width", 67)
+				.attr("height", 100)
+				.style("fill", d3.rgb(166, 33, 113));
+		})
+		.on("mouseout", function(){
+			d3.selectAll(".legendGrad").remove();
+		});
+
+	flag.append("rect")
+		.attr("x", 150)
+		.attr("y", 50)
+		.attr("width", 150)
+		.attr("height", 100)
+		.style("fill", "blue")
+		.on("mouseover", function(){
+			d3.selectAll("#flag")
+				.append("rect")
+				.attr("id", "legendGrad")
+				.attr("x", 400)
+				.attr("y", 100)
+				.attr("width", 400)
+				.attr("height", 100)
+				.style("fill", "blue");
+		})
+		.on("mouseout", function(){
+			d3.selectAll("#legendGrad").remove();
+		});
+
+	flag.append("rect")
+		.attr("x", 0)
+		.attr("y", 150)
+		.attr("width", 150)
+		.attr("height", 100)
+		.style("fill", "green")
+		.on("mouseover", function(){
+			d3.selectAll("#flag")
+				.append("rect")
+				.attr("id", "legendGrad")
+				.attr("x", 400)
+				.attr("y", 100)
+				.attr("width", 400)
+				.attr("height", 100)
+				.style("fill", "red");
+		})
+		.on("mouseout", function(){
+			d3.selectAll("#legendGrad").remove();
+		});
+
+	flag.append("rect")
+		.attr("x", 150)
+		.attr("y", 150)
+		.attr("width", 150)
+		.attr("height", 100)
+		.style("fill", "yellow")
+		.on("mouseover", function(){
+			d3.selectAll("#flag")
+				.append("rect")
+				.attr("id", "legendGrad")
+				.attr("x", 400)
+				.attr("y", 100)
+				.attr("width", 400)
+				.attr("height", 100)
+				.style("fill", "green");
+		})
+		.on("mouseout", function(){
+			d3.selectAll("#legendGrad").remove();
+		});
 
 </script>
 
