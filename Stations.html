@@ -141,7 +141,7 @@ $.ajax({
 				.style("left", (d3.event.pageX) + "px")     
 				.style("top", (d3.event.pageY - 90) + "px")
 				.select("#stationLabel")	
-				.html("<strong>" + d.address + "</strong>" + "<br/>" + "Free Bikes: " + d.bikes + "<br/>" + "Free Docks: " + d.free);			
+				.html("<strong>" + d.name + "</strong>" + "<br/>" + "Free Bikes: " + d.bikes + "<br/>" + "Free Docks: " + d.free);			
 			
 				d3.select("#tooltip").classed("hidden", false);
 				
