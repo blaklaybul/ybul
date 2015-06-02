@@ -50,7 +50,6 @@
   <link rel="stylesheet" href="skeleton.css">
   <link rel="stylesheet" href="layout.css">
   
-  
   <script type="text/javascript" src="d3/d3.v3.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
@@ -73,7 +72,7 @@
 		  
 		  <div id = "Calligraphy" class = "sixteen columns">
 			   <script type = "text/javascript">
-			   
+
 			    var margin = {top: 40, right: 80, bottom: 30, left:50},
 				   width=1000 - margin.left - margin.right,
 				   height = 500 - margin.top - margin.bottom;
@@ -92,6 +91,41 @@
 			  
 			  </script>
 		  </div>
-	  
+
+<script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+
+<!-- Instantiate PubNub -->
+<script type="text/javascript">
+
+    function publish() {
+ 
+     pubnub = PUBNUB.init({                                  
+         publish_key   : 'pub-c-ae1c51ad-d5bb-461e-80d6-93190ff0d334',
+         subscribe_key : 'sub-c-9d7d9b74-0953-11e5-9ecd-0619f8945a4f'
+     });
+ 
+     pubnub.subscribe({                                      
+         channel : "pubnub-twitter",
+         message : function(message,env,channel){
+           document.getElementById('text').innerHTML =
+           "Message Received." + '<br>' +
+           "Channel: " + channel + '<br>' +
+           "Message: " + JSON.stringify(message)  + '<br>' +
+           "Raw Envelope: " + JSON.stringify(env) + '<br>'
+         },
+         connect: pub
+     });
+ 
+     function pub() {
+        pubnub.publish({                                     
+             channel : "hello_world",
+             message : "Hello from PubNub Docs!",
+             callback: function(m){ console.log(m) }
+        });
+     }
+    }
+
+</script>
+
  </body>
 </html>
