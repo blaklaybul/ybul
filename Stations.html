@@ -56,14 +56,16 @@ line-height: 20px;
 var margin = {top: 40, right: 30, bottom: 40, left:30};
 var width=1020 - margin.left - margin.right;
 var height = 780 - margin.top - margin.bottom;
-   
-
+var centered;
+var pro = 330000;
 var stations = [];
 
 var projection = d3.geo.conicConformal()
 	.parallels([40+40/60,41+2/60])
-	.scale(300000)
+	.scale(pro)
 	.rotate([74,-40 - 45 / 60]);
+
+
 
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -87,7 +89,8 @@ d3.json("nyc-zip-code.json", function(error, json) {
               .append("path")
 			  //.attr("class", "tracts")
 			  .attr("id", function(d){return d.properties.ZIP;})
-              .attr("d", path);
+              .attr("d", path)
+              .on("click", clicked);
 });
 
 var stationSize = [];
@@ -110,13 +113,13 @@ $.ajax({
 		
         $.each(data,function(){
 			
-			stations.selectAll("circle") //change back to circle?
+			zips.selectAll("circle") //change back to circle?
 			.data(data)
 			.enter()
 			.append("circle")
 			.attr("cx", function(d){return projection([d.lng/1000000, d.lat/1000000])[0];})
 			.attr("cy", function(d){return projection([d.lng/1000000, d.lat/1000000])[1];})
-			.attr("r", function(d){return stationScale(d.bikes+d.free);})
+			.attr("r", function(d){return 5;})
 			.style("fill", function(d) {
 				if(d.bikes==0){
 					return "white";}
@@ -130,9 +133,9 @@ $.ajax({
 					return 1;}
 				})
 			.style("stroke","black")
-			.style("stroke-width",function(d){if(d.bikes==0){return 1;}else{ return 1;}})
+			.style("stroke-width",function(d){if(d.bikes==0){return 0.5;}else{ return 0.5;}})
 			.on("mouseover", function(d){
-				d3.select(this).transition().attr("r",10);
+				d3.select(this).transition().attr("r",7);
 				
 				var xPosition = d3.select(this).attr("cx");
 				var yPosition = d3.select(this).attr("cy");
@@ -148,7 +151,7 @@ $.ajax({
 				})
 			.on("mouseout", function(){
 				d3.select("#tooltip").classed("hidden", true);
-				d3.select(this).transition().attr("r",function(d){return stationScale(d.bikes+d.free);});
+				d3.select(this).transition().attr("r",function(d){return 5;});
 				})
 			.on("click", function(d){
 				//still add a click function...
@@ -160,6 +163,38 @@ $.ajax({
         console.log("Error",arguments);
     }
 });
+
+function clicked(d) {
+  var x, y, k;
+
+  if (d && centered !== d) {
+    var centroid = path.centroid(d);
+    x = centroid[0];
+    y = centroid[1];
+    k = 4;
+    centered = d;
+  } else {
+    x = width / 2;
+    y = height / 2;
+    k = 1;
+    centered = null;
+  }
+
+  zips.selectAll("path")
+      .classed("active", centered && function(d) { return d === centered; });
+
+  zips.transition()
+      .duration(750)
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+      .style("stroke-width", 1.5 / k + "px");
+
+   zips.selectAll("circle")
+   	.transition()
+   	.duration(1500)
+   	.attr("r",function(){return 5-(k/2)})
+   	.style("stroke-width",0.5);
+
+}
 
   	
 </script>
