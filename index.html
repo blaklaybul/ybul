@@ -10,11 +10,11 @@
     }
   }
   </style>
-  
+
   <link rel="stylesheet" href="base.css">
   <link rel="stylesheet" href="skeleton.css">
   <link rel="stylesheet" href="layout.css">
-  
+
   <script type="text/javascript" src="d3/d3.v3.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <script type="text/javascript">
@@ -30,36 +30,36 @@
   })();
 
 </script>
- 
+
  </head>
- 
+
   <body>
 	  <div class = "container">
-		  
+
 		  <div id = "headerimage" class = "four columns">
 			  <h1><a href = "index.html">blaklaybul</a></h1>
 		  </div>
-		  
+
 		  <div id = "nav" class = "twelve columns">
-			
+
 			  <ul>
 				  <li><a href = "About.html">About</a></li>
 			  </ul>
-		  	
+
 		  </div>
-		  
+
 		  <div id = "viz" class = "sixteen columns">
 			  <script type = "text/javascript">
-			  	
+
 			  var w = 900;
 			  var h = 250;
 			  var margin = 60;
 			  var count = 1;
-			  var data = 
+			  var data =
 			  [
 			  				{"let" : "", "val" : 1},
 							{"let" : "", "val" : 2},
-							{"let" : "", "val" : 3}, 
+							{"let" : "", "val" : 3},
 							{"let" : "", "val" : 4},
 							{"let" : "", "val" : 5},
 							{"let" : "", "val" : 6},
@@ -68,20 +68,20 @@
 							{"let" : "", "val" : 9},
 							{"let" : "", "val" : 10}
 						];
-						
-			  
+
+
 			  var scale = d3.scale.linear()
 			  				.domain([1,data.length])
 							.range([margin, w-margin]);
-			  
-			  
-			  
+
+
+
 			  var svg = d3.select("#viz")
 			  			.append("svg")
 			 		   	.attr("width",w)
 						.attr("height",h);
-			  
-						
+
+
 			  var circle = svg.selectAll("circle")
 					.data(data)
 					.enter()
@@ -93,7 +93,7 @@
 
 			  d3.selectAll("circle")
 					.on("mouseover", function(){
-								
+
 					svg.selectAll("circle")
 						.data(data)
 						.transition()
@@ -101,33 +101,33 @@
 						.ease("linear")
 						.attr("r", function(){return Math.random() * 50})
 						.style("fill", function(d){return d3.rgb(Math.random()*255,Math.random()*255 ,Math.random()*255).brighter();});
-						
+
 				});
-							
-			  
+
+
 			  </script>
 		  </div>
-		  
+
 		  <div class = "one-third column feature">
 			  <h3>Data Driven Flags</h3>
-			  <a href = "Flags_of_the_World.html"><img src = "Images/worldClip.png"></a>
+			  <a href = "flags"><img src = "Images/worldClip.png"></a>
 			  <p>Creating new national identities using country data</p>
 		  </div>
-		  
+
 		  <div class = "one-third column feature">
 			  <h3>JSpaceMan</h3>
 			  <a href = spaceman.html><img src = "Images/spaceclip.png"></a>
 			  <p>Pixel munging with Processing. Bringing Spaceman Home</p>
 		  </div>
-		  
+
 		  <div class = "one-third column feature">
 			  <h3>Prisms</h3>
 			  <a href = prism.html><img src = "Images/prismClip.png"></a>
 			  <p>Prism meets lens</p>
 		  </div>
-	  
+
 		  <div class = "sixteen columns"></div>
-		  
+
 		  <div class = "one-third column feature">
 			  <h3>Triboro Bridge</h3>
 			  <a href = alef.html><img src = "Images/triboroClip.png"></a>
@@ -139,17 +139,17 @@
 			  <a href = dinerTable.html><img src = "Images/diner.png"></a>
 			  <p>Create something reminiscent of a diner table top</p>
 		  </div>
-		  
-		 
+
+
 		  <div class = "one-third column feature">
 			  <h3>Citibike Rides</h3>
 			  <a href = CitiBike.html><img src = "Images/CitibikeClip.png"></a>
 			  <p>Another Look at NYC Citi Bike Data</p>
 		  </div>
-		  
-		  
-		  <div class = "sixteen columns"></div>		  
-		  
+
+
+		  <div class = "sixteen columns"></div>
+
 		  <div class = "one-third column feature">
 			  <h3>CitiBike Dock Map</h3>
 			  <a href = Stations.html><img src = "Images/stationClip.png"></a>
@@ -162,9 +162,9 @@
 			  <a href = About.html><img src = "http://farm4.staticflickr.com/3165/2762558925_5c488020c9_z.jpg"></a>
 			  <p>That's me in the desert</p>
 		  </div>
-		  
-		  
+
+
 	  </div>
- 
+
  </body>
 </html>
