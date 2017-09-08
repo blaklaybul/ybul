@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>blaklaybul</title>
+  <style>
+  #prismSlideshow a{
+	  text-decoration: none;
+  }
+
+  #prismSlideshow a:hover,
+  #prismSlideshow a:active {
+    color: rgb(250,35,71);
+	font-weight: bold;
+  }
+
+  </style>
+
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="skeleton.css">
+  <link rel="stylesheet" href="layout.css">
+
+  <script type="text/javascript" src="d3/d3.v3.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+  <script src="slidesjs/jquery.slides.min.js" type="text/javascript"></script>
+  <script>
+      $(function(){
+        $("#prismSlideshow").slidesjs({
+          width: 940,
+          height: 528,
+		  navigation:{active:false, effect:"fade"},
+		  pagination:{active:false}
+        });
+      });
+    </script>
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42735820-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+ </head>
+
+  <body>
+	  <div class = "container">
+		  <div class = "row">
+		  <div id = "headerimage" class = "four columns">
+			  <h1><a href = "/ybul">blaklaybul</a></h1>
+		  </div>
+
+		  <div id = "nav" class = "twelve columns">
+
+			  <ul>
+				  <li><a href = "about">about</a></li>
+			  </ul>
+
+		  </div>
+      </div>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class = "row">
+		  <div class = "twelve columns">
+			  <h1>Coming Soon.</h1>
+		  </div>
+      </div>
+	</div>
+
+ </body>
+</html>
